@@ -1,10 +1,10 @@
+// src/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Login() {
-  const [username, setUsername] = useState('');
+function Login({ setToken }) {
+  const [username, setUsername] = useState('');  // useState Hook :contentReference[oaicite:3]{index=3}
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -12,19 +12,28 @@ function Login() {
         username,
         password,
       });
+      // Call the parent setter instead of local state
       setToken(response.data.access_token);
     } catch (error) {
-      console.error('Login failed:', error.response.data.message);
+      console.error('Login failed:', error.response?.data?.message);
     }
   };
 
   return (
     <div>
       <h2>Login</h2>
-      <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <button onClick={handleLogin}>Login</button>
-      {token && <p>Token: {token}</p>}
     </div>
   );
 }

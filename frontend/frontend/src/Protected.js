@@ -1,3 +1,4 @@
+// src/Protected.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -8,12 +9,12 @@ function Protected({ token }) {
     try {
       const response = await axios.get('http://localhost:5000/protected', {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,  // pass token in header
         },
       });
       setMessage(response.data.logged_in_as);
     } catch (error) {
-      console.error('Access denied:', error.response.data.message);
+      console.error('Access denied:', error.response?.data?.message);
     }
   };
 
@@ -21,7 +22,7 @@ function Protected({ token }) {
     <div>
       <h2>Protected</h2>
       <button onClick={fetchProtected}>Access Protected Route</button>
-      {message && <p>{message}</p>}
+      {message && <p>Logged in as: {message}</p>}
     </div>
   );
 }

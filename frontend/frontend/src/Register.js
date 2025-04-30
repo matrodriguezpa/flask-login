@@ -1,3 +1,4 @@
+// src/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -12,16 +13,28 @@ function Register() {
         password,
       });
       alert('Registration successful');
+      // Clear form fields after registering
+      setUsername('');
+      setPassword('');
     } catch (error) {
-      console.error('Registration failed:', error.response.data.message);
+      console.error('Registration failed:', error.response?.data?.message);
     }
   };
 
   return (
     <div>
       <h2>Register</h2>
-      <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <button onClick={handleRegister}>Register</button>
     </div>
   );
